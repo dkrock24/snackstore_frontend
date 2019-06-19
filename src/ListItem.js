@@ -6,18 +6,18 @@ const ListItem = (props) => {
         
 
         <div  key={props.index} className="col-lg-4 col-md-4 mb-4">
-        	
+        	<br/>
 	        <div className="card h-100">
 	         	<a href="#"><img className="card-img-top" src="http://placehold.it/700x400" alt /></a>
 	          		<div className="card-body">
 	            		<h4 className="card-title">
-	              		<a href="#">{props.item}</a>
+	              			<a href="#">{props.item}</a>
 	            		</h4>
-	            		<h5>{props.price}</h5>
+	            		<h5>$ {props.price}</h5>
 	            		<p className="card-text">{props.description}</p>
 	          		</div>
 	          		<div className="card-footer">
-	            		<small className="text-muted">★ ★ ★ ★ ☆</small>
+	            		<small className="text-muted">Likes {props.likes}</small>
 	          		</div>
 	        </div>
 

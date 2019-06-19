@@ -6,6 +6,7 @@ import './App.css';
 import ListItem from './ListItem';
 
 class App extends Component {
+ 
 
   constructor(){
 
@@ -21,6 +22,8 @@ class App extends Component {
 
       notification : null,
 
+      searchTodo: null,
+
       todos: [{
         id:null,
         name_product:null,
@@ -30,8 +33,10 @@ class App extends Component {
       loading:true
     };
     this.apiUrl = 'http://127.0.0.1:8000';
+
+
    
-    this.login   = this.login.bind(this);
+//    this.login   = this.login.bind(this);
   }
 
     componentWillMount(){
@@ -40,35 +45,30 @@ class App extends Component {
 
     async componentDidMount(){
 
+          const { handle } = this.props.match.params;
+          var response=null ;
+          var info = null;
+
         var config = {
             headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json',}
         };
-
         
-        const response = await axios.get(`${this.apiUrl}/api/product_list` , config);
-        console.log("------------", response.data);
+        
+        if( handle == null ){
+          
+           response = await axios.get(`${this.apiUrl}/api/product_list` , config);
+           info = response.data;
+        }
+        else{
+          
+           response = await axios.get(`${this.apiUrl}/api/product?name=${handle}`, config); 
+           info = response.data.data;
+        }
+        
         this.setState({
-          todos: response.data,
+          todos: info,
           loading:false
-        });        
-    }
-
-    async login(){
-        /*
-        const todo = this.state.todos[this.state.editingIndex];
-
-        const response = await axios.post(`${this.apiUrl}/api/login/${todo.id}`,{name: this.state.newTodo});
-
-        todo.name = this.state.newTodo;
-
-        const todos = this.state.todos;
-        todos[this.state.editingIndex] = response.data;
-
-        
-        this.setState({ todos , editing:false , editingIndex:null, newTodo:'' });
-
-        this.alert('Todo updating successfully');
-        */
+        });
     }
 
   render(){
@@ -91,6 +91,7 @@ class App extends Component {
                       item={item.name_product}
                       price={item.price_product}
                       description={item.description_product}
+                      likes={item.total}
                       editTodo={() => {this.editTodo(index);}}
                       deleteTodo={() => {this.deleteTodo(index);}} />;
                 })}

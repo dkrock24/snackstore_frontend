@@ -11,11 +11,14 @@ const  Product = () => {
 
             <div class="col-lg-3">
 
-              <h1 class="my-4">Menu</h1>
+              <h1 class="my-4">Search.</h1>
               <div class="list-group">
-                <a href="#" class="list-group-item">Products List</a>
-                <a href="#" class="list-group-item">Popular1</a>
-                <a href="#" class="list-group-item">More</a>
+              <form method="post" action="/product">
+                
+                <input type="text" name="b" className="form-control" placeholder="Search Product" />
+                
+                <input type="submit" name="" className="btn btn-info form-control" />
+              </form>
               </div>
             </div>
 
